@@ -23,17 +23,6 @@ router.get("/posts/:id", async (req, res, next) => {
   }
 })
 
-router.get("/posts/:id/comments", async (req, res, next) => {
-  try {
-    const comments = await Comment.find( { post: req.params.id } )
-    res.json( comments )
-  }
-  catch(err) {
-    next(err)
-  }
-})
-
-
 router.post("/posts", async (req, res, next) => {
   try {
     const postNew = await Post.create( req.body  )
@@ -63,5 +52,27 @@ router.delete("/posts/:id", async (req, res, next) => {
     next(err)
   }
 })
+
+
+// getting RELATED data
+
+// /parent/:parentId/children/:childId
+// /parent/:parentId/children
+router.get("/posts/:id/comments", async (req, res, next) => {
+
+  const { id } = req.params
+
+  try {    
+    // find all comments which have the given postId
+    const comments = await Comment.find( { postId: id } )
+    res.json( comments )
+  }
+  catch(err) {
+    next(err)
+  }
+})
+
+
+
 
 export default router
