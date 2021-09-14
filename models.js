@@ -3,10 +3,18 @@ const { Schema, model } = mongoose
 
 // Relation => help the CHILD to find its PARENT!
 
+const StatsSchema = new Schema({
+  likes: { type: Number, default: 0 },
+  dislikes: { type: Number, default: 0 }
+}, {
+  _id: false // => remove ID for embedded item
+})
+
 const PostSchema = new Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
-  author: { type: String, required: true }
+  author: { type: String, required: true },
+  stats: StatsSchema
 }, {
   versionKey: false, // get rid of fu**** __v 
   timestamps: true // => createdAt and updatedAt => it will update it automatically

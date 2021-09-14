@@ -5,7 +5,7 @@ const Post = ({ post, index = 0 }) => {
   // attach post data to router links
   const postLinkData = {
     pathname: `/post/${post._id}`,
-    state: post
+    state: post // pass kind of like props to other page
   } 
 
   return (
@@ -17,7 +17,7 @@ const Post = ({ post, index = 0 }) => {
         <Link to={ postLinkData }>{ post.title }</Link>
       </div>
       <div className="post-author">
-        {post.createdAt}, by {post.author}
+        {post.createdAt.substring(0, 10)} by {post.author}
       </div>
       <div className="post-text">{post.text.substring(0, 70)}</div>
       <div className="post-foloowup">

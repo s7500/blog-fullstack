@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../contexts/DataProvider";
 import Comment from '../components/Comment'
 import IconLike from '../images/thumbs-up.svg'
@@ -8,12 +8,23 @@ import IconDislike from '../images/thumbs-down.svg'
 
 const PostPage = ({ location }) => {
 
-  const { comments, setComments } = useContext(DataContext)
+  const [comments, setComments] = useState([])  
 
   // receive BLOG post details from router link
   const { state: post } = location; // extract POST data from link
+  // { pathname: "", state:  } => state => rename to post: {  varName: renamedVarName }
 
-  // TODO: load comments from API on load (=> if Post ID is given / has changed!)
+  // useEffect always run AFTER first render
+  useEffect(() => {
+
+    // fetch blog post comments DYNAMICALLY
+    fetch(`http://localhost:5000/posts/${post._id}/comments`)
+    .then(res => res.json())
+    .then(commentsApi => {
+      setComments( commentsApi )  // => triggers a re-render
+    })
+
+  }, [])
 
   // RENDER COMMENTS
   const jsxComments = comments.map( (comment, i) => (
@@ -28,7 +39,7 @@ const PostPage = ({ location }) => {
         By: {post.author}
       </div>
       <div className="post-date">
-        {post.createdAt}
+        {post.createdAt.substring(0, 10)}
       </div>
       <div className="post-text">
         {post.text}

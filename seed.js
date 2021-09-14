@@ -17,12 +17,14 @@ const seed = async () => {
       {
         title: "Relations are coool", 
         author: "Rob", 
-        text: "Yay, title says it all. " + faker.lorem.sentences(5)
+        text: "Yay, title says it all. " + faker.lorem.sentences(5),
+        stats: { likes: 3, dislikes: 0 } // embedded the likes & dislikes
       },
       {
         title: "Nesting makes sense", 
         author: "Wasabis",
-        text: "Nest me if you can. " + faker.lorem.sentences(5)
+        text: "Nest me if you can. " + faker.lorem.sentences(5),
+        stats: { likes: 5, dislikes: 2 }
       },
     ])
 
