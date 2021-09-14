@@ -10,9 +10,12 @@ const PostPage = ({ location }) => {
 
   const [comments, setComments] = useState([])  
 
-  // receive BLOG post details from router link
+  // receive BLOG post details from router link => stored in location object !
+    // location object is either available in props.location or via useLocation() hook
+
   const { state: post } = location; // extract POST data from link
-  // { pathname: "", state:  } => state => rename to post: {  varName: renamedVarName }
+  // location object: { pathname: "/posts/<id>", state: someData  } 
+  // descructure state => rename to "post" => {  varName: renamedVarName }
 
   // useEffect always run AFTER first render
   useEffect(() => {
